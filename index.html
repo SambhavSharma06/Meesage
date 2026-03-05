@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For Priyanshi ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff6a88,#ff99ac);
+  font-family:Arial;
+  overflow:hidden;
+}
+
+.container{
+  text-align:center;
+  color:white;
+}
+
+h1{
+  font-size:50px;
+}
+
+p{
+  font-size:22px;
+}
+
+.heart{
+  position:absolute;
+  color:red;
+  font-size:30px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<h1>Hi Priyanshi ❤️</h1>
+<p>You are the most special person in my life.</p>
+<p>I love you.</p>
+</div>
+
+<script>
+
+window.onload = function(){
+
+  // voice message
+  const msg = new SpeechSynthesisUtterance(
+  "Hi Priyanshi. I just wanted to tell you that you are very special to me. I love you."
+  );
+  speechSynthesis.speak(msg);
+
+  // floating hearts
+  setInterval(createHeart,300);
+
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*20+20)+"px";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{heart.remove();},6000);
+}
+
+</script>
+
+</body>
+</html>
