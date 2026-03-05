@@ -1,80 +1,227 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>For Priyanshi ❤️</title>
+<title>A Letter For Priyanshi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display&display=swap" rel="stylesheet">
 
 <style>
+
 body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#ff6a88,#ff99ac);
-  font-family:Arial;
-  overflow:hidden;
+margin:0;
+min-height:100vh;
+background:radial-gradient(circle at top,#1b2735,#090a0f);
+overflow-y:auto;
+display:flex;
+justify-content:center;
+align-items:flex-start;
+padding:80px 20px;
+font-family:'Playfair Display',serif;
+color:white;
 }
 
-.container{
-  text-align:center;
-  color:white;
+/* STARS */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+opacity:0.8;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
+}
+
+/* ENVELOPE */
+
+.envelope{
+width:260px;
+height:180px;
+background:#f2d1b3;
+position:relative;
+cursor:pointer;
+box-shadow:0 15px 40px rgba(0,0,0,0.4);
+margin:auto;
+}
+
+.flap{
+position:absolute;
+top:0;
+width:0;
+height:0;
+border-left:130px solid transparent;
+border-right:130px solid transparent;
+border-bottom:90px solid #e5b78e;
+}
+
+.wax{
+position:absolute;
+top:65px;
+left:110px;
+width:40px;
+height:40px;
+background:#b22222;
+border-radius:50%;
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+/* LETTER */
+
+.letter{
+position:relative;
+max-width:720px;
+width:90%;
+background:white;
+color:#333;
+padding:60px;
+box-shadow:0 20px 50px rgba(0,0,0,0.4);
+line-height:1.9;
+font-size:21px;
+display:none;
+margin:auto;
 }
 
 h1{
-  font-size:50px;
+font-family:'Dancing Script',cursive;
+font-size:45px;
+margin-bottom:25px;
 }
 
-p{
-  font-size:22px;
+.signature{
+margin-top:40px;
+font-family:'Dancing Script',cursive;
+font-size:30px;
 }
 
-.heart{
-  position:absolute;
-  color:red;
-  font-size:30px;
-  animation: float 6s linear infinite;
+#text{
+white-space:pre-line;
 }
 
-@keyframes float{
-  0%{transform:translateY(100vh);opacity:1;}
-  100%{transform:translateY(-10vh);opacity:0;}
+/* PETALS */
+
+.petal{
+position:absolute;
+font-size:22px;
+animation:fall 7s linear infinite;
 }
+
+@keyframes fall{
+0%{transform:translateY(-10vh) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
+
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
-<h1>Hi Priyanshi ❤️</h1>
-<p>You are the most special person in my life.</p>
-<p>I love you.</p>
+<div class="envelope" id="env" onclick="openLetter()">
+<div class="flap"></div>
+<div class="wax"></div>
+</div>
+
+<div class="letter" id="letter">
+
+<h1>Dear Priyanshi,</h1>
+
+<div id="text"></div>
+
+<div class="signature">
+— Sambhav
+</div>
+
 </div>
 
 <script>
 
-window.onload = function(){
+/* CREATE STARS */
 
-  // voice message
-  const msg = new SpeechSynthesisUtterance(
-  "Hi Priyanshi. I just wanted to tell you that you are very special to me. I love you."
-  );
-  speechSynthesis.speak(msg);
+for(let i=0;i<120;i++){
 
-  // floating hearts
-  setInterval(createHeart,300);
+let star=document.createElement("div");
+star.className="star";
+
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(star);
 
 }
 
-function createHeart(){
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(Math.random()*20+20)+"px";
-  document.body.appendChild(heart);
+/* LETTER TEXT */
 
-  setTimeout(()=>{heart.remove();},6000);
+let letter=`Sometimes life introduces us to people who quietly make everything feel a little brighter.
+
+Meeting you was one of those moments.
+
+You have a warmth that makes ordinary days feel special.
+A smile that makes conversations lighter.
+And a presence that makes the world feel calmer.
+
+This letter isn't meant to impress you.
+It's simply meant to be honest.
+
+I just wanted you to know that you are someone very special to me.
+
+And no matter where life leads,
+I will always be grateful for the moments we share.`;
+
+/* TYPEWRITER EFFECT */
+
+let i=0;
+
+function type(){
+
+if(i < letter.length){
+
+document.getElementById("text").innerHTML += letter.charAt(i);
+
+i++;
+
+setTimeout(type,35);
+
+}
+
+}
+
+/* OPEN LETTER */
+
+function openLetter(){
+
+document.getElementById("env").style.display="none";
+document.getElementById("letter").style.display="block";
+
+createPetals();
+type();
+
+}
+
+/* ROSE PETALS */
+
+function createPetals(){
+
+setInterval(function(){
+
+let petal=document.createElement("div");
+
+petal.className="petal";
+petal.innerHTML="🌹";
+
+petal.style.left=Math.random()*100+"vw";
+petal.style.fontSize=(Math.random()*15+15)+"px";
+
+document.body.appendChild(petal);
+
+setTimeout(()=>petal.remove(),7000);
+
+},400);
+
 }
 
 </script>
